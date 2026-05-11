@@ -1,130 +1,152 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap");
+
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+/* */
 :root {
-  --text: #6b6375;
-  --text-h: #08060d;
-  --bg: #fff;
-  --border: #e5e4e7;
-  --code-bg: #f4f3ec;
-  --accent: #aa3bff;
-  --accent-bg: rgba(170, 59, 255, 0.1);
-  --accent-border: rgba(170, 59, 255, 0.5);
-  --social-bg: rgba(244, 243, 236, 0.5);
-  --shadow:
-    rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
-
-  --sans: system-ui, "Segoe UI", Roboto, sans-serif;
-  --heading: system-ui, "Segoe UI", Roboto, sans-serif;
-  --mono: ui-monospace, Consolas, monospace;
-
-  font: 18px/145% var(--sans);
-  letter-spacing: 0.18px;
-  color-scheme: light dark;
-  color: var(--text);
-  background: var(--bg);
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-
-  @media (max-width: 1024px) {
-    font-size: 16px;
-  }
+  --bg-primary: #f8fafc;
+  --bg-card: #ffffff;
+  --border: #e5e7eb;
+  --text-heading: #1f2937;
+  --text-para: #6b7280;
+  --brand-primary: #2fa084;
+  --brand-secondary: #578fca;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --text: #9ca3af;
-    --text-h: #f3f4f6;
-    --bg: #16171d;
-    --border: #2e303a;
-    --code-bg: #1f2028;
-    --accent: #c084fc;
-    --accent-bg: rgba(192, 132, 252, 0.15);
-    --accent-border: rgba(192, 132, 252, 0.5);
-    --social-bg: rgba(47, 48, 58, 0.5);
-    --shadow:
-      rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
-  }
-
-  #social .button-icon {
-    filter: invert(1) brightness(2);
-  }
+.dark {
+  --bg-primary: #0f172a;
+  --bg-card: #1e293b;
+  --border: #334155;
+  --text-heading: #f8fafc;
+  --text-para: #cbd5e1;
+  --brand-primary: #2fa084;
+  --brand-secondary: #578fca;
 }
 
-/* CRITICAL FIX: Allow page scrolling */
+* {
+  box-sizing: border-box;
+}
+
 html {
-  width: 100%;
-  min-height: 100%;
-  overflow-x: hidden;
-  overflow-y: auto !important; /* Force scroll */
+  scroll-behavior: smooth;
 }
 
 body {
-  margin: 0;
-  width: 100%;
-  min-height: 100%;
-  overflow-x: hidden;
-  overflow-y: auto !important; /* Force scroll */
-  background: var(--bg); /* Use your theme background */
+  font-family: "Inter", system-ui, sans-serif;
+  background-color: var(--bg-primary);
+  color: var(--text-para);
 }
 
-#root {
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #2fa084;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #267d68;
+}
+
+/* TipTap Editor Styles */
+.ProseMirror {
+  min-height: 500px;
+  padding: 1rem;
+  outline: none;
+}
+
+.ProseMirror h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1f2937;
+}
+
+.dark .ProseMirror h1 {
+  color: #f8fafc;
+}
+
+.ProseMirror h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.dark .ProseMirror h2 {
+  color: #f8fafc;
+}
+
+.ProseMirror h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.dark .ProseMirror h3 {
+  color: #f8fafc;
+}
+
+.ProseMirror p {
+  margin: 0.5rem 0;
+}
+
+.ProseMirror a {
+  color: #2fa084;
+  text-decoration: underline;
+}
+
+.ProseMirror blockquote {
+  border-left: 4px solid #578fca;
+  padding-left: 1rem;
+  margin-left: 0;
+  color: #6b7280;
+}
+
+.dark .ProseMirror blockquote {
+  color: #cbd5e1;
+}
+
+.ProseMirror code {
+  background-color: #f3f4f6;
+  padding: 0.2rem 0.4rem;
+  border-radius: 0.25rem;
+  font-family: "Courier New", monospace;
+}
+
+.dark .ProseMirror code {
+  background-color: #374151;
+}
+
+.ProseMirror pre {
+  background-color: #1f2937;
+  color: #f3f4f6;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  overflow-x: auto;
+}
+
+.ProseMirror img {
   max-width: 100%;
-  margin: 0 auto;
-  text-align: center;
-  border-inline: 1px solid var(--border);
-  min-height: 100svh;
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
-  overflow: visible; /* Allow content to determine scroll */
+  height: auto;
+  border-radius: 0.5rem;
 }
 
-/* Remove conflicting skeleton styles from index.css */
-/* These should only be in the component */
-@import url("https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap");
-
-h1,
-h2 {
-  font-family: var(--heading);
-  font-weight: 500;
-  color: var(--text-h);
+/* Skeleton Loader */
+.skeleton {
+  background: linear-gradient(90deg, #e5e7eb 0%, #f3f4f6 50%, #e5e7eb 100%);
+  background-size: 1000px 100%;
+  animation: shimmer 2s infinite linear;
 }
 
-h1 {
-  font-size: 56px;
-  letter-spacing: -1.68px;
-  margin: 32px 0;
-  @media (max-width: 1024px) {
-    font-size: 36px;
-    margin: 20px 0;
-  }
-}
-
-h2 {
-  font-size: 24px;
-  line-height: 118%;
-  letter-spacing: -0.24px;
-  margin: 0 0 8px;
-  @media (max-width: 1024px) {
-    font-size: 20px;
-  }
-}
-
-p {
-  margin: 0;
-}
-
-code,
-.counter {
-  font-family: var(--mono);
-  display: inline-flex;
-  border-radius: 4px;
-  color: var(--text-h);
-}
-
-code {
-  font-size: 15px;
-  line-height: 135%;
-  padding: 4px 8px;
-  background: var(--code-bg);
+.dark .skeleton {
+  background: linear-gradient(90deg, #334155 0%, #475569 50%, #334155 100%);
+  background-size: 1000px 100%;
 }
