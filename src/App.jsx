@@ -1,6 +1,6 @@
 import React from "react";
 import { useTheme } from "@hooks/useTheme";
-import AppRouter from "@router/AppRouter";
+import AppRouter from "@/router/AppRouter";
 
 /**
  * Root application component
