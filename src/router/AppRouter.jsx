@@ -1,7 +1,7 @@
 import { Routes, Route, Navigate } from "react-router";
 import ProtectedRoute from "./ProtectedRoute";
 import GuestRoute from "./GuestRoute";
-import DashboardLayout from "@components/layout/DashboardLayout";
+import DashboardLayout from "@/components/layout/DashboardLayout";
 
 // Auth Pages
 import LoginPage from "@pages/auth/LoginPage";
