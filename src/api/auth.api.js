@@ -1,10 +1,10 @@
-import api from './axios';
+import api from "./axios";
 
 /**
  * Authentication API service
  * All functions return the validated API response from the backend
  * Backend handles httpOnly refreshToken cookie automatically
- * 
+ *
  * @typedef {Object} ApiResponse
  * @property {boolean} success - Operation success status
  * @property {number} statusCode - HTTP status code
@@ -23,7 +23,7 @@ import api from './axios';
  * @throws {Error} 429 - Rate limit exceeded
  */
 export async function login(email, password) {
-  const response = await api.post('/auth/login', { email, password });
+  const response = await api.post("/auth/login", { email, password });
   return response.data;
 }
 
@@ -34,7 +34,7 @@ export async function login(email, password) {
  * @returns {Promise<ApiResponse>} Always returns success response
  */
 export async function forgotPassword(email) {
-  const response = await api.post('/auth/forgot-password', { email });
+  const response = await api.post("/auth/forgot-password", { email });
   return response.data;
 }
 
@@ -47,7 +47,7 @@ export async function forgotPassword(email) {
  * @throws {Error} 400 - Invalid or expired OTP
  */
 export async function verifyOtp(email, otp) {
-  const response = await api.post('/auth/verify-otp', { email, otp });
+  const response = await api.post("/auth/verify-otp", { email, otp });
   return response.data;
 }
 
@@ -60,7 +60,7 @@ export async function verifyOtp(email, otp) {
  * @throws {Error} 401 - Invalid or expired magic token
  */
 export async function magicLogin(email, magicToken) {
-  const response = await api.post('/auth/magic-login', { email, magicToken });
+  const response = await api.post("/auth/magic-login", { email, magicToken });
   return response.data;
 }
 
@@ -74,7 +74,7 @@ export async function magicLogin(email, magicToken) {
  * @throws {Error} 401 - Invalid or expired magic token
  */
 export async function resetPassword(email, magicToken, newPassword) {
-  const response = await api.post('/auth/reset-password', {
+  const response = await api.post("/auth/reset-password", {
     email,
     magicToken,
     newPassword,
@@ -89,16 +89,20 @@ export async function resetPassword(email, magicToken, newPassword) {
  * @throws {Error} 401 - Refresh token expired or invalid
  */
 export async function refreshToken() {
-  const response = await api.post('/auth/refresh-token');
+  const response = await api.post("/auth/refresh-token");
   return response.data;
 }
 
+export async function me() {
+  const response = await api.get("/users/me");
+  return response.data.data;
+}
 /**
  * Logout current user
  * Invalidates refreshToken cookie on server
  * @returns {Promise<ApiResponse>} Success confirmation
  */
 export async function logout() {
-  const response = await api.post('/auth/logout');
+  const response = await api.post("/auth/logout");
   return response.data;
 }

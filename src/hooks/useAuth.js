@@ -5,12 +5,19 @@ import * as authApi from "@api/auth.api";
 import { toast } from "sonner";
 import { formatError } from "@utils/formatError";
 
+/**
+ * Authentication hook - wraps Zustand auth store with API calls
+ * Provides complete auth functionality to components
+ *
+ * @returns {Object} Auth state and actions
+ */
 export function useAuth() {
   const navigate = useNavigate();
   const {
     user,
     accessToken,
     isAuthenticated,
+    isInitialized,
     setAuth,
     clearAuth,
     updateUser: updateStoreUser,
@@ -71,6 +78,7 @@ export function useAuth() {
     user,
     accessToken,
     isAuthenticated,
+    isInitialized,
     role: user?.role,
     isAdmin: user?.role === "ADMIN",
     login,

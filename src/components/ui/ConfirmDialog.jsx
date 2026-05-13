@@ -32,15 +32,13 @@ function ConfirmDialog({
 }) {
   const handleConfirm = () => {
     onConfirm();
+    onClose(); // Close dialog after confirm
   };
 
   const iconColor = variant === "danger" ? "text-red-500" : "text-yellow-500";
-  const confirmVariant =
-    variant === "danger"
-      ? "danger"
-      : "warning" in undefined
-        ? "primary"
-        : "primary";
+
+  // ✅ FIXED: Determine confirm button variant correctly
+  const confirmVariant = variant === "danger" ? "danger" : "primary";
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} size="sm">
