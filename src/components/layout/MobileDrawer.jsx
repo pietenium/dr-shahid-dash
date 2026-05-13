@@ -4,14 +4,14 @@ import { NavLink, useLocation, useNavigate } from "react-router";
 import { motion, AnimatePresence } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faLayoutDashboard,
+  faTableColumns,
   faFileText,
   faBookOpen,
   faStar,
   faCalendar,
-  faMessageSquare,
+  faMessage,
   faUsers,
-  faActivity,
+  faHeartbeat,
   faCog,
   faUserCog,
   faXmark,
@@ -31,9 +31,7 @@ import { useState } from "react";
 const MOBILE_NAV_GROUPS = [
   {
     label: "OVERVIEW",
-    items: [
-      { label: "Dashboard", path: "/dashboard", icon: faLayoutDashboard },
-    ],
+    items: [{ label: "Dashboard", path: "/dashboard", icon: faTableColumns }],
   },
   {
     label: "CONTENT",
@@ -64,14 +62,14 @@ const MOBILE_NAV_GROUPS = [
     label: "MANAGEMENT",
     items: [
       { label: "Appointments", path: "/appointments", icon: faCalendar },
-      { label: "Contact Messages", path: "/contact", icon: faMessageSquare },
+      { label: "Contact Messages", path: "/contact", icon: faMessage },
       { label: "Users", path: "/users", icon: faUsers, adminOnly: true },
     ],
   },
   {
     label: "SYSTEM",
     items: [
-      { label: "Activity Logs", path: "/activity-logs", icon: faActivity },
+      { label: "Activity Logs", path: "/activity-logs", icon: faHeartbeat },
       { label: "App Info", path: "/app-info", icon: faCog, adminOnly: true },
       { label: "Settings", path: "/settings", icon: faUserCog },
     ],

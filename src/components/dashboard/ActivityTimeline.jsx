@@ -3,7 +3,7 @@ import { memo } from "react";
 import { Link } from "react-router";
 import { motion } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faActivity, faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import { faWaveSquare, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import Avatar from "@components/ui/Avatar";
 import Badge from "@components/ui/Badge";
 import { formatRelativeTime } from "@utils/formatDate";
@@ -73,7 +73,7 @@ const ActivityTimeline = memo(function ActivityTimeline({
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">
           <FontAwesomeIcon
-            icon={faActivity}
+            icon={faWaveSquare}
             className="w-4 h-4 text-brand-primary"
           />
           <h3 className="text-base font-semibold text-text-heading-light dark:text-text-heading-dark">

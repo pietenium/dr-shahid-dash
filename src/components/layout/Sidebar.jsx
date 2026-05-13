@@ -4,14 +4,14 @@ import { NavLink, useLocation } from "react-router";
 import { motion, AnimatePresence } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faLayoutDashboard,
+  faTableColumns,
   faFileText,
   faBookOpen,
   faStar,
   faCalendar,
-  faMessageSquare,
+  faMessage,
   faUsers,
-  faActivity,
+  faHeartbeat,
   faCog,
   faUserCog,
   faChevronLeft,
@@ -73,7 +73,7 @@ const Sidebar = memo(function Sidebar() {
           {
             label: "Dashboard",
             path: "/dashboard",
-            icon: faLayoutDashboard,
+            icon: faTableColumns,
           },
         ],
       },
@@ -113,7 +113,7 @@ const Sidebar = memo(function Sidebar() {
           {
             label: "Contact Messages",
             path: "/contact",
-            icon: faMessageSquare,
+            icon: faMessage,
           },
           {
             label: "Users",
@@ -129,7 +129,7 @@ const Sidebar = memo(function Sidebar() {
           {
             label: "Activity Logs",
             path: "/activity-logs",
-            icon: faActivity,
+            icon: faHeartbeat,
           },
           {
             label: "App Info",
