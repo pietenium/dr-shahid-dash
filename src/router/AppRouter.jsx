@@ -12,25 +12,25 @@ import ResetPasswordPage from "@pages/auth/ResetPasswordPage";
 
 // Main Pages
 import DashboardPage from "@pages/dashboard/DashboardPage";
-import AppointmentsPage from "@pages/appointments/AppointmentsPage";
-import AppointmentChartsPage from "@pages/appointments/AppointmentChartsPage";
-import ArticlesPage from "@pages/articles/ArticlesPage";
-import ArticleCategoriesPage from "@pages/articles/ArticleCategoriesPage";
-import ArticleCreatePage from "@pages/articles/ArticleCreatePage";
-import ArticleDetailPage from "@pages/articles/ArticleDetailPage";
-import ArticleUpdatePage from "@pages/articles/ArticleUpdatePage";
-import ResearchPage from "@pages/research/ResearchPage";
-import ResearchCreatePage from "@pages/research/ResearchCreatePage";
-import ResearchDetailPage from "@pages/research/ResearchDetailPage";
-import ResearchUpdatePage from "@pages/research/ResearchUpdatePage";
-import TestimonialsPage from "@pages/testimonials/TestimonialsPage";
-import TestimonialCreatePage from "@pages/testimonials/TestimonialCreatePage";
-import TestimonialUpdatePage from "@pages/testimonials/TestimonialUpdatePage";
-import UsersPage from "@pages/users/UsersPage";
-import ActivityLogsPage from "@pages/activity-logs/ActivityLogsPage";
-import AppInfoPage from "@pages/app-info/AppInfoPage";
-import ContactPage from "@pages/contact/ContactPage";
-import SettingsPage from "@pages/settings/SettingsPage";
+// import AppointmentsPage from "@pages/appointments/AppointmentsPage";
+// import AppointmentChartsPage from "@pages/appointments/AppointmentChartsPage";
+// import ArticlesPage from "@pages/articles/ArticlesPage";
+// import ArticleCategoriesPage from "@pages/articles/ArticleCategoriesPage";
+// import ArticleCreatePage from "@pages/articles/ArticleCreatePage";
+// import ArticleDetailPage from "@pages/articles/ArticleDetailPage";
+// import ArticleUpdatePage from "@pages/articles/ArticleUpdatePage";
+// import ResearchPage from "@pages/research/ResearchPage";
+// import ResearchCreatePage from "@pages/research/ResearchCreatePage";
+// import ResearchDetailPage from "@pages/research/ResearchDetailPage";
+// import ResearchUpdatePage from "@pages/research/ResearchUpdatePage";
+// import TestimonialsPage from "@pages/testimonials/TestimonialsPage";
+// import TestimonialCreatePage from "@pages/testimonials/TestimonialCreatePage";
+// import TestimonialUpdatePage from "@pages/testimonials/TestimonialUpdatePage";
+// import UsersPage from "@pages/users/UsersPage";
+// import ActivityLogsPage from "@pages/activity-logs/ActivityLogsPage";
+// import AppInfoPage from "@pages/app-info/AppInfoPage";
+// import ContactPage from "@pages/contact/ContactPage";
+// import SettingsPage from "@pages/settings/SettingsPage";
 
 /**
  * Application router with protected and guest routes
@@ -53,7 +53,7 @@ function AppRouter() {
       <Route element={<ProtectedRoute />}>
         <Route element={<DashboardLayout />}>
           <Route path="/dashboard" element={<DashboardPage />} />
-          <Route path="/appointments" element={<AppointmentsPage />} />
+          {/* <Route path="/appointments" element={<AppointmentsPage />} />
           <Route
             path="/appointments/charts"
             element={<AppointmentChartsPage />}
@@ -83,7 +83,7 @@ function AppRouter() {
           <Route path="/activity-logs" element={<ActivityLogsPage />} />
           <Route path="/app-info" element={<AppInfoPage />} />
           <Route path="/contact" element={<ContactPage />} />
-          <Route path="/settings" element={<SettingsPage />} />
+          <Route path="/settings" element={<SettingsPage />} /> */}
         </Route>
       </Route>
 
