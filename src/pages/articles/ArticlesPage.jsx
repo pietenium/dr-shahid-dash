@@ -244,7 +244,7 @@ function ArticlesPage() {
               key={article._id}
               article={article}
               index={index}
-              onView={() => navigate(`/articles/${article._id}`)}
+              onView={() => navigate(`/articles/${article?.slug}`)}
               onEdit={() => navigate(`/articles/${article._id}/edit`)}
               onDelete={() => setDeleteTarget(article)}
             />
