@@ -13,12 +13,7 @@ import Spinner from "@components/ui/Spinner";
 function ProtectedRoute() {
   const { isAuthenticated, isInitialized } = useAuthStore();
   const location = useLocation();
-  console.log(
-    "ProtectedRoute - isAuthenticated:",
-    isAuthenticated,
-    "isInitialized:",
-    isInitialized,
-  );
+
   // Show loading while auth is being initialized
   if (!isInitialized) {
     return (
