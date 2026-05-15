@@ -30,7 +30,7 @@ import UsersPage from "@pages/users/UsersPage";
 import ActivityLogsPage from "@pages/activity-logs/ActivityLogsPage";
 import AppInfoPage from "@pages/app-info/AppInfoPage";
 // import ContactPage from "@pages/contact/ContactPage";
-// import SettingsPage from "@pages/settings/SettingsPage";
+import SettingsPage from "@pages/settings/SettingsPage";
 
 /**
  * Application router with protected and guest routes
@@ -85,10 +85,11 @@ function AppRouter() {
           <Route path="/app-info" element={<AppInfoPage />} />
           <Route path="/users" element={<UsersPage />} />
           <Route path="/activity-logs" element={<ActivityLogsPage />} />
+          <Route path="/settings" element={<SettingsPage />} />
           {/*
 
           <Route path="/contact" element={<ContactPage />} />
-          <Route path="/settings" element={<SettingsPage />} /> */}
+          */}
         </Route>
       </Route>
 

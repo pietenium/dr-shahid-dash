@@ -51,3 +51,32 @@ export async function deleteUser(id) {
   const response = await api.delete(`/users/${id}`);
   return response.data;
 }
+
+/**
+ * Fetch current logged-in user profile
+ * @returns {Promise<Object>} User profile response
+ */
+export async function getMe() {
+  const response = await api.get("/users/me");
+  return response.data;
+}
+
+/**
+ * Update current user profile
+ * @param {Object} data - { name?, email? }
+ * @returns {Promise<Object>} Updated user response
+ */
+export async function updateMe(data) {
+  const response = await api.patch("/users/me", data);
+  return response.data;
+}
+
+/**
+ * Change current user password
+ * @param {Object} data - { currentPassword, newPassword }
+ * @returns {Promise<Object>} Success response
+ */
+export async function changePassword(data) {
+  const response = await api.patch("/users/me/password", data);
+  return response.data;
+}
