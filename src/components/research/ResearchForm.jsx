@@ -470,7 +470,7 @@ function ResearchForm({
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.4 }}
-        className="bg-card-light dark:bg-card-dark rounded-xl border border-border-light dark:border-border-dark p-5 space-y-4 sticky bottom-4"
+        className="bg-card-light dark:bg-card-dark rounded-xl border border-border-light dark:border-border-dark p-5 space-y-4  bottom-4"
       >
         <h3 className="text-sm font-semibold text-text-heading-light dark:text-text-heading-dark">
           📅 Publishing
