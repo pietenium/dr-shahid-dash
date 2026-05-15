@@ -398,7 +398,7 @@ function TestimonialForm({
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.3 }}
-        className="bg-card-light dark:bg-card-dark rounded-xl border border-border-light dark:border-border-dark p-5 space-y-4 sticky bottom-4"
+        className="bg-card-light dark:bg-card-dark rounded-xl border border-border-light dark:border-border-dark p-5 space-y-4 bottom-4"
       >
         {/* Visibility Toggle */}
         <div className="flex items-center justify-between">

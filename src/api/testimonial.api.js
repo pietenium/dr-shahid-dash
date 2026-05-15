@@ -12,7 +12,8 @@ import api from "./axios";
  */
 export async function getTestimonials() {
   const response = await api.get("/testimonials/admin");
-  console.log(response.sata);
+
+  console.log(response.data);
   return response.data;
 }
 

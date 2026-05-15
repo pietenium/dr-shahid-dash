@@ -38,9 +38,11 @@ function TestimonialsPage() {
 
   const { data, isLoading } = useQuery({
     queryKey: ["testimonials"],
-    queryFn: getTestimonials(),
+    queryFn: getTestimonials, // Pass function reference, don't call it
     staleTime: 2 * 60 * 1000,
   });
+
+ const testimonials = useMemo(() => data?.data || [], [data]);
 
   const toggleMutation = useMutation({
     mutationFn: ({ id, isVisible }) => {
@@ -64,10 +66,6 @@ function TestimonialsPage() {
     },
     onError: () => toast.error("Failed to delete"),
   });
-
-  const testimonials = useMemo(() => {
-    data?.data || [];
-  }, [data]);
 
   const filteredTestimonials = useMemo(() => {
     if (visibilityFilter === "visible")
