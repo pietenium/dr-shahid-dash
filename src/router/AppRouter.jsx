@@ -23,9 +23,9 @@ import ResearchPage from "@pages/research/ResearchPage";
 import ResearchCreatePage from "@pages/research/ResearchCreatePage";
 import ResearchDetailPage from "@pages/research/ResearchDetailPage";
 import ResearchUpdatePage from "@pages/research/ResearchUpdatePage";
-// import TestimonialsPage from "@pages/testimonials/TestimonialsPage";
-// import TestimonialCreatePage from "@pages/testimonials/TestimonialCreatePage";
-// import TestimonialUpdatePage from "@pages/testimonials/TestimonialUpdatePage";
+import TestimonialsPage from "@pages/testimonials/TestimonialsPage";
+import TestimonialCreatePage from "@pages/testimonials/TestimonialCreatePage";
+import TestimonialUpdatePage from "@pages/testimonials/TestimonialUpdatePage";
 // import UsersPage from "@pages/users/UsersPage";
 // import ActivityLogsPage from "@pages/activity-logs/ActivityLogsPage";
 // import AppInfoPage from "@pages/app-info/AppInfoPage";
@@ -72,10 +72,9 @@ function AppRouter() {
           <Route path="/research/create" element={<ResearchCreatePage />} />
           <Route path="/research/:id" element={<ResearchDetailPage />} />
           <Route path="/research/:id/edit" element={<ResearchUpdatePage />} />
-          {/*
 
           <Route path="/testimonials" element={<TestimonialsPage />} />
-<Route
+          <Route
             path="/testimonials/create"
             element={<TestimonialCreatePage />}
           />
@@ -83,6 +82,8 @@ function AppRouter() {
             path="/testimonials/:id/edit"
             element={<TestimonialUpdatePage />}
           />
+          {/*
+
           <Route path="/users" element={<UsersPage />} />
           <Route path="/activity-logs" element={<ActivityLogsPage />} />
           <Route path="/app-info" element={<AppInfoPage />} />

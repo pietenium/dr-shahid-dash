@@ -19,8 +19,10 @@ function App() {
   const { theme } = useTheme();
   const initializeAuth = useAuthStore((state) => state.initializeAuth);
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+  const accessToken = useAuthStore((state) => state.accessToken);
   const [isAppReady, setIsAppReady] = useState(false);
   const navigate = useNavigate();
+  console.log(accessToken)
   /**
    * Initialize auth on mount
    * Only runs once when the app first loads
