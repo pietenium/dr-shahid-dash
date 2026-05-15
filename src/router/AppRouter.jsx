@@ -19,10 +19,10 @@ import ArticleCategoriesPage from "@pages/articles/ArticleCategoriesPage";
 import ArticleCreatePage from "@pages/articles/ArticleCreatePage";
 import ArticleDetailPage from "@pages/articles/ArticleDetailPage";
 import ArticleUpdatePage from "@pages/articles/ArticleUpdatePage";
-// import ResearchPage from "@pages/research/ResearchPage";
-// import ResearchCreatePage from "@pages/research/ResearchCreatePage";
-// import ResearchDetailPage from "@pages/research/ResearchDetailPage";
-// import ResearchUpdatePage from "@pages/research/ResearchUpdatePage";
+import ResearchPage from "@pages/research/ResearchPage";
+import ResearchCreatePage from "@pages/research/ResearchCreatePage";
+import ResearchDetailPage from "@pages/research/ResearchDetailPage";
+import ResearchUpdatePage from "@pages/research/ResearchUpdatePage";
 // import TestimonialsPage from "@pages/testimonials/TestimonialsPage";
 // import TestimonialCreatePage from "@pages/testimonials/TestimonialCreatePage";
 // import TestimonialUpdatePage from "@pages/testimonials/TestimonialUpdatePage";
@@ -67,14 +67,15 @@ function AppRouter() {
           <Route path="/articles/create" element={<ArticleCreatePage />} />
           <Route path="/articles/:slug" element={<ArticleDetailPage />} />
           <Route path="/articles/:slug/edit" element={<ArticleUpdatePage />} />
-          {/*
-          
+
           <Route path="/research" element={<ResearchPage />} />
           <Route path="/research/create" element={<ResearchCreatePage />} />
           <Route path="/research/:id" element={<ResearchDetailPage />} />
           <Route path="/research/:id/edit" element={<ResearchUpdatePage />} />
+          {/*
+
           <Route path="/testimonials" element={<TestimonialsPage />} />
-          <Route
+<Route
             path="/testimonials/create"
             element={<TestimonialCreatePage />}
           />
