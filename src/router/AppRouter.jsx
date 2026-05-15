@@ -12,8 +12,8 @@ import ResetPasswordPage from "@pages/auth/ResetPasswordPage";
 
 // Main Pages
 import DashboardPage from "@pages/dashboard/DashboardPage";
-// import AppointmentsPage from "@pages/appointments/AppointmentsPage";
-// import AppointmentChartsPage from "@pages/appointments/AppointmentChartsPage";
+import AppointmentsPage from "@pages/appointments/AppointmentsPage";
+import AppointmentChartsPage from "@pages/appointments/AppointmentChartsPage";
 // import ArticlesPage from "@pages/articles/ArticlesPage";
 // import ArticleCategoriesPage from "@pages/articles/ArticleCategoriesPage";
 // import ArticleCreatePage from "@pages/articles/ArticleCreatePage";
@@ -53,11 +53,13 @@ function AppRouter() {
       <Route element={<ProtectedRoute />}>
         <Route element={<DashboardLayout />}>
           <Route path="/dashboard" element={<DashboardPage />} />
-          {/* <Route path="/appointments" element={<AppointmentsPage />} />
+          <Route path="/appointments" element={<AppointmentsPage />} />
           <Route
             path="/appointments/charts"
             element={<AppointmentChartsPage />}
           />
+          {/*
+          
           <Route path="/articles" element={<ArticlesPage />} />
           <Route
             path="/articles/categories"
