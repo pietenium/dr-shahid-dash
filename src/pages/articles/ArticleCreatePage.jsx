@@ -29,6 +29,7 @@ function ArticleCreatePage() {
   });
 
   const handleSubmit = (formData) => {
+    console.log("Submitting article form with data:", formData);
     mutation.mutate(formData);
   };
 

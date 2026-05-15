@@ -14,11 +14,11 @@ import ResetPasswordPage from "@pages/auth/ResetPasswordPage";
 import DashboardPage from "@pages/dashboard/DashboardPage";
 import AppointmentsPage from "@pages/appointments/AppointmentsPage";
 import AppointmentChartsPage from "@pages/appointments/AppointmentChartsPage";
-// import ArticlesPage from "@pages/articles/ArticlesPage";
-// import ArticleCategoriesPage from "@pages/articles/ArticleCategoriesPage";
-// import ArticleCreatePage from "@pages/articles/ArticleCreatePage";
-// import ArticleDetailPage from "@pages/articles/ArticleDetailPage";
-// import ArticleUpdatePage from "@pages/articles/ArticleUpdatePage";
+import ArticlesPage from "@pages/articles/ArticlesPage";
+import ArticleCategoriesPage from "@pages/articles/ArticleCategoriesPage";
+import ArticleCreatePage from "@pages/articles/ArticleCreatePage";
+import ArticleDetailPage from "@pages/articles/ArticleDetailPage";
+import ArticleUpdatePage from "@pages/articles/ArticleUpdatePage";
 // import ResearchPage from "@pages/research/ResearchPage";
 // import ResearchCreatePage from "@pages/research/ResearchCreatePage";
 // import ResearchDetailPage from "@pages/research/ResearchDetailPage";
@@ -58,16 +58,17 @@ function AppRouter() {
             path="/appointments/charts"
             element={<AppointmentChartsPage />}
           />
-          {/*
-          
+
           <Route path="/articles" element={<ArticlesPage />} />
           <Route
             path="/articles/categories"
             element={<ArticleCategoriesPage />}
           />
           <Route path="/articles/create" element={<ArticleCreatePage />} />
-          <Route path="/articles/:id" element={<ArticleDetailPage />} />
-          <Route path="/articles/:id/edit" element={<ArticleUpdatePage />} />
+          <Route path="/articles/:slug" element={<ArticleDetailPage />} />
+          <Route path="/articles/:slug/edit" element={<ArticleUpdatePage />} />
+          {/*
+          
           <Route path="/research" element={<ResearchPage />} />
           <Route path="/research/create" element={<ResearchCreatePage />} />
           <Route path="/research/:id" element={<ResearchDetailPage />} />

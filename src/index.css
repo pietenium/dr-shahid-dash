@@ -150,3 +150,121 @@ body {
   background: linear-gradient(90deg, #334155 0%, #475569 50%, #334155 100%);
   background-size: 1000px 100%;
 }
+
+/* Add these to src/index.css */
+
+/* ============ TIPTAP TABLE STYLES ============ */
+.ProseMirror table {
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  width: 100%;
+  overflow-x: auto;
+  display: block;
+}
+
+.ProseMirror table td,
+.ProseMirror table th {
+  border: 1px solid #e5e7eb;
+  padding: 0.75rem 1rem;
+  min-width: 80px;
+  position: relative;
+  vertical-align: top;
+}
+
+.dark .ProseMirror table td,
+.dark .ProseMirror table th {
+  border-color: #334155;
+}
+
+.ProseMirror table th {
+  background-color: #f9fafb;
+  font-weight: 600;
+}
+
+.dark .ProseMirror table th {
+  background-color: #1e293b;
+}
+
+/* Selected cell highlight */
+.ProseMirror td.selectedCell,
+.ProseMirror th.selectedCell {
+  background-color: rgba(47, 160, 132, 0.1);
+  outline: 2px solid #2fa084;
+}
+
+/* Column resize handle */
+.ProseMirror td .column-resize-handle,
+.ProseMirror th .column-resize-handle {
+  position: absolute;
+  right: -2px;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background-color: #2fa084;
+  cursor: col-resize;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.ProseMirror td:hover .column-resize-handle,
+.ProseMirror th:hover .column-resize-handle {
+  opacity: 1;
+}
+
+/* ============ EMBED STYLES ============ */
+.ProseMirror .embed-container {
+  position: relative;
+  margin: 1.5rem 0;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  background: #000;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15);
+}
+
+.ProseMirror .embed-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Aspect ratio utility */
+.ProseMirror .aspect-video {
+  aspect-ratio: 16 / 9;
+}
+
+/* ============ IMAGE STYLES ============ */
+.ProseMirror img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 0.75rem;
+  cursor: pointer;
+  transition:
+    box-shadow 0.2s,
+    opacity 0.2s;
+}
+
+.ProseMirror img:hover {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+}
+
+.ProseMirror img.ProseMirror-selectednode {
+  outline: 3px solid #2fa084;
+  outline-offset: 2px;
+  border-radius: 0.75rem;
+}
+
+/* Resize handle */
+.ProseMirror img + .image-resize-handle {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 12px;
+  height: 12px;
+  background: #2fa084;
+  border-radius: 50%;
+  cursor: nwse-resize;
+  border: 2px solid white;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
