@@ -111,16 +111,7 @@ function ArticleForm({ defaultValues, onSubmit, isSubmitting }) {
     formData.append("articleType", articleType);
     formData.append("status", publishStatus || status);
     if (author.trim()) formData.append("author", author.trim());
-    if (tags.trim())
-      formData.append(
-        "tags",
-        JSON.stringify(
-          tags
-            .split(",")
-            .map((t) => t.trim())
-            .filter(Boolean),
-        ),
-      );
+    if (tags.trim()) formData.append("tags", tags);
     if (publishedAt)
       formData.append("publishedAt", new Date(publishedAt).toISOString());
     if (featuredImage) formData.append("featuredImage", featuredImage);
