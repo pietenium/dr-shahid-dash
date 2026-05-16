@@ -104,11 +104,21 @@ function AppointmentsPage() {
   });
 
   const appointments = useMemo(
-    () => appointmentsData?.data?.results || [],
+    () => appointmentsData?.data?.docs || [],
     [appointmentsData],
   );
-  const pagination = appointmentsData?.data?.pagination || {};
 
+  const pagination = useMemo(
+    () => ({
+      totalDocs: appointmentsData?.data?.totalDocs || 0,
+      totalPages: appointmentsData?.data?.totalPages || 1,
+      currentPage: appointmentsData?.data?.page || 1,
+      limit: appointmentsData?.data?.limit || 10,
+      hasNextPage: appointmentsData?.data?.hasNextPage || false,
+      hasPrevPage: appointmentsData?.data?.hasPrevPage || false,
+    }),
+    [appointmentsData],
+  );
   /**
    * Fetch appointment detail and open modal
    * @param {Object} appointment - Appointment row data

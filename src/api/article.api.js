@@ -33,7 +33,7 @@ export async function getTopArticlesByCategory(params = { limit: 5 }) {
  * @returns {Promise<Object>} Paginated articles response
  */
 export async function getArticles(params = {}) {
-  const response = await api.get("/articles/admin", { params });
+  const response = await api.get("/articles/admin/all", { params });
   return response.data;
 }
 
