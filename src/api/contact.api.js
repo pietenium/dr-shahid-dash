@@ -35,8 +35,8 @@ export async function getContactMessageById(id) {
  * @param {'READ'|'REPLIED'|'ARCHIVED'} status - New status
  * @returns {Promise<Object>} Updated message response
  */
-export async function updateContactStatus(id, status) {
-  const response = await api.patch(`/contact/${id}/status`, { status });
+export async function updateContactStatus(id) {
+  const response = await api.patch(`/contact/${id}/read`);
   return response.data;
 }
 

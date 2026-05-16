@@ -29,26 +29,24 @@ import Tooltip from "@components/ui/Tooltip";
 import { toast } from "sonner";
 
 /**
- * Status tab configuration
+ * Status tab configuration - simplified for isRead boolean backend
  * @constant {Array<{label: string, value: string, color: string}>}
  */
 const STATUS_TABS = [
   { label: "All", value: "", color: "" },
-  { label: "Unread", value: "UNREAD", color: "bg-blue-500" },
-  { label: "Read", value: "READ", color: "bg-gray-500" },
-  { label: "Replied", value: "REPLIED", color: "bg-green-500" },
-  { label: "Archived", value: "ARCHIVED", color: "bg-yellow-600" },
+  { label: "Unread", value: "unread", color: "bg-blue-500" },
+  { label: "Read", value: "read", color: "bg-green-500" },
 ];
 
 /**
  * ContactPage - Contact messages management
  *
  * Features:
- * - Status tabs with animated indicator
+ * - Status tabs with animated indicator (Unread/Read)
  * - Search by name, email, or subject
  * - Responsive table/card layout
  * - Detail modal with full message view
- * - Quick status actions (Mark Read, Reply, Archive)
+ * - Auto-mark as read on view
  * - Delete with confirmation
  */
 function ContactPage() {
@@ -70,7 +68,12 @@ function ContactPage() {
   const queryParams = useMemo(
     () => ({
       ...paginationParams,
-      status: activeTab || undefined,
+      isRead:
+        activeTab === "read"
+          ? true
+          : activeTab === "unread"
+            ? false
+            : undefined,
       search: debouncedSearch || undefined,
     }),
     [paginationParams, activeTab, debouncedSearch],
@@ -89,6 +92,7 @@ function ContactPage() {
     () => messagesData?.data?.docs || [],
     [messagesData],
   );
+
   const pagination = useMemo(
     () => ({
       totalDocs: messagesData?.data?.totalDocs || 0,
@@ -102,15 +106,14 @@ function ContactPage() {
   );
 
   /**
-   * Status update mutation
+   * Mark as read mutation
    */
-  const statusMutation = useMutation({
-    mutationFn: ({ id, status }) => updateContactStatus(id, status),
+  const readMutation = useMutation({
+    mutationFn: (id) => updateContactStatus(id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["contact"] });
-      toast.success("Status updated");
     },
-    onError: () => toast.error("Failed to update status"),
+    onError: () => toast.error("Failed to mark as read"),
   });
 
   /**
@@ -131,18 +134,18 @@ function ContactPage() {
   });
 
   /**
-   * Open detail modal
+   * Open detail modal - auto mark as read if unread
    */
   const handleViewDetail = useCallback(
     (message) => {
       setSelectedMessage(message);
       setIsModalOpen(true);
-      // Auto-mark as read if unread
-      if (message.status === "UNREAD") {
-        statusMutation.mutate({ id: message._id, status: "READ" });
+      // Auto-mark as read if currently unread
+      if (!message.isRead) {
+        readMutation.mutate(message._id);
       }
     },
-    [statusMutation],
+    [readMutation],
   );
 
   const hasActiveFilters = activeTab || search;
@@ -308,7 +311,7 @@ function ContactPage() {
                     className={`
                       border-b border-border-light dark:border-border-dark cursor-pointer
                       hover:bg-brand-softbg/30 dark:hover:bg-brand-primary/5 transition-colors
-                      ${msg.status === "UNREAD" ? "bg-blue-50/30 dark:bg-blue-900/5" : ""}
+                      ${!msg.isRead ? "bg-blue-50/30 dark:bg-blue-900/5" : ""}
                     `}
                   >
                     <td className="px-4 py-3">
@@ -320,7 +323,11 @@ function ContactPage() {
                         </div>
                         <div className="min-w-0">
                           <p
-                            className={`text-sm truncate max-w-[140px] ${msg.status === "UNREAD" ? "font-semibold text-text-heading-light dark:text-text-heading-dark" : "font-medium text-text-heading-light dark:text-text-heading-dark"}`}
+                            className={`text-sm truncate max-w-[140px] ${
+                              !msg.isRead
+                                ? "font-semibold text-text-heading-light dark:text-text-heading-dark"
+                                : "font-medium text-text-heading-light dark:text-text-heading-dark"
+                            }`}
                           >
                             {msg.name}
                           </p>
@@ -328,7 +335,7 @@ function ContactPage() {
                             {msg.email}
                           </p>
                         </div>
-                        {msg.status === "UNREAD" && (
+                        {!msg.isRead && (
                           <span className="w-2 h-2 rounded-full bg-blue-500 flex-shrink-0" />
                         )}
                       </div>
@@ -344,7 +351,7 @@ function ContactPage() {
                       </span>
                     </td>
                     <td className="px-4 py-3">
-                      <StatusBadge status={msg.status} />
+                      <StatusBadge status={msg.isRead ? "READ" : "UNREAD"} />
                     </td>
                     <td className="px-4 py-3 hidden sm:table-cell">
                       <Tooltip
@@ -421,7 +428,11 @@ function ContactPage() {
               onClick={() => handleViewDetail(msg)}
               className={`
                 bg-card-light dark:bg-card-dark rounded-xl border p-4 space-y-2.5 cursor-pointer
-                ${msg.status === "UNREAD" ? "border-l-4 border-l-blue-500" : "border-border-light dark:border-border-dark"}
+                ${
+                  !msg.isRead
+                    ? "border-l-4 border-l-blue-500"
+                    : "border-border-light dark:border-border-dark"
+                }
               `}
             >
               <div className="flex items-center justify-between">
@@ -438,7 +449,7 @@ function ContactPage() {
                     <p className="text-xs text-text-para-light">{msg.email}</p>
                   </div>
                 </div>
-                <StatusBadge status={msg.status} />
+                <StatusBadge status={msg.isRead ? "READ" : "UNREAD"} />
               </div>
               {msg.subject && (
                 <p className="text-sm font-medium text-text-heading-light dark:text-text-heading-dark">
@@ -461,7 +472,7 @@ function ContactPage() {
         <Pagination
           currentPage={page}
           totalPages={pagination.totalPages}
-          totalDocs={pagination.totalDocs || pagination.total}
+          totalDocs={pagination.totalDocs}
           limit={limit}
           onPageChange={goToPage}
         />

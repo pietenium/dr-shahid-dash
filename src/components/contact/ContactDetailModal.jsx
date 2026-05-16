@@ -39,7 +39,7 @@ const ContactDetailModal = memo(function ContactDetailModal({
   const queryClient = useQueryClient();
 
   const statusMutation = useMutation({
-    mutationFn: ({ id, status }) => updateContactStatus(id, status),
+    mutationFn: ({ id }) => updateContactStatus(id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["contact"] });
       toast.success("Status updated");
@@ -60,7 +60,7 @@ const ContactDetailModal = memo(function ContactDetailModal({
 
   if (!message && !loading) return null;
 
-  const isUnread = message?.status === "UNREAD";
+  const isUnread = !message?.isRead;
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} title="" size="lg">
@@ -94,7 +94,7 @@ const ContactDetailModal = memo(function ContactDetailModal({
               </div>
             </div>
             <StatusBadge
-              status={message?.status}
+              status={isUnread ? "UNREAD" : "READ"}
               className="flex-shrink-0 ml-3"
             />
           </div>
@@ -171,65 +171,22 @@ const ContactDetailModal = memo(function ContactDetailModal({
 
           {/* Footer Actions */}
           <div className="flex flex-wrap gap-2 justify-end pt-4 border-t border-border-light dark:border-border-dark">
-            {isUnread && (
+            {isUnread ? (
               <Button
                 variant="primary"
                 size="sm"
-                onClick={() =>
-                  statusMutation.mutate({ id: message._id, status: "READ" })
-                }
+                onClick={() => statusMutation.mutate({ id: message._id })}
                 loading={statusMutation.isPending}
-                leftIcon={faEnvelopeOpen}
+                leftIcon={faEnvelope}
               >
                 Mark as Read
               </Button>
-            )}
-            {message?.status !== "REPLIED" &&
-              message?.status !== "ARCHIVED" && (
-                <>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() =>
-                      statusMutation.mutate({
-                        id: message._id,
-                        status: "REPLIED",
-                      })
-                    }
-                    loading={statusMutation.isPending}
-                    leftIcon={faReply}
-                  >
-                    Mark Replied
-                  </Button>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() =>
-                      statusMutation.mutate({
-                        id: message._id,
-                        status: "ARCHIVED",
-                      })
-                    }
-                    loading={statusMutation.isPending}
-                    leftIcon={faArchive}
-                  >
-                    Archive
-                  </Button>
-                </>
-              )}
-            {message?.status === "ARCHIVED" && (
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() =>
-                  statusMutation.mutate({ id: message._id, status: "READ" })
-                }
-                loading={statusMutation.isPending}
-                leftIcon={faEnvelopeOpen}
-              >
-                Unarchive
+            ) : (
+              <Button variant="primary" size="sm" leftIcon={faEnvelopeOpen}>
+                Read
               </Button>
             )}
+
             <div className="w-px h-8 bg-border-light dark:bg-border-dark mx-1 self-center" />
             <Button
               variant="danger"
