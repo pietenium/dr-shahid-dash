@@ -57,7 +57,6 @@ export const useAuthStore = create((set, get) => ({
       const { data } = await api.post("/auth/refresh-token");
       const user = await me();
       const { accessToken } = data.data;
-      console.log("🔄 Token refreshed proactively", user);
 
       if (accessToken && user) {
         // Store user in sessionStorage as backup
