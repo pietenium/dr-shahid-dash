@@ -1,9 +1,10 @@
 /* eslint-disable no-unused-vars */
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 /**
- * Dropdown menu component
+ * @Dropdown menu component
  * @param {Object} props
  * @param {React.ReactNode} props.trigger - Trigger element
  * @param {Array<{label: string, onClick: Function, icon?: IconProp, danger?: boolean}>} props.items - Menu items
@@ -62,7 +63,9 @@ function Dropdown({ trigger, items, align = "right" }) {
                   }
                 `.trim()}
               >
-                {item.icon && <item.icon className="w-4 h-4" />}
+                {item.icon && (
+                  <FontAwesomeIcon icon={item.icon} className="w-4 h-4" />
+                )}
                 {item.label}
               </button>
             ))}
