@@ -22,59 +22,15 @@ import { useAuth } from "@hooks/useAuth";
 import Avatar from "@components/ui/Avatar";
 import ConfirmDialog from "@components/ui/ConfirmDialog";
 import { useState } from "react";
-
+import { useNotifications } from "@context/NotificationContext";
+import { useQuery } from "@tanstack/react-query";
+import { getAppointments } from "@api/appointment.api";
+import { getContactMessages } from "@api/contact.api";
 /**
  * Navigation group configuration for mobile drawer
  * Same structure as Sidebar but always fully expanded
  * @constant {Array.<{label: string, items: Array}>}
  */
-const MOBILE_NAV_GROUPS = [
-  {
-    label: "OVERVIEW",
-    items: [{ label: "Dashboard", path: "/dashboard", icon: faTableColumns }],
-  },
-  {
-    label: "CONTENT",
-    items: [
-      {
-        label: "All Articles",
-        path: "/articles",
-        icon: faFileText,
-        indent: true,
-      },
-      {
-        label: "Categories",
-        path: "/articles/categories",
-        icon: faFileText,
-        indent: true,
-      },
-      {
-        label: "Create Article",
-        path: "/articles/create",
-        icon: faFileText,
-        indent: true,
-      },
-      { label: "Research", path: "/research", icon: faBookOpen },
-      { label: "Testimonials", path: "/testimonials", icon: faStar },
-    ],
-  },
-  {
-    label: "MANAGEMENT",
-    items: [
-      { label: "Appointments", path: "/appointments", icon: faCalendar },
-      { label: "Contact Messages", path: "/contact", icon: faMessage },
-      { label: "Users", path: "/users", icon: faUsers, adminOnly: true },
-    ],
-  },
-  {
-    label: "SYSTEM",
-    items: [
-      { label: "Activity Logs", path: "/activity-logs", icon: faHeartbeat },
-      { label: "App Info", path: "/app-info", icon: faCog, adminOnly: true },
-      { label: "Settings", path: "/settings", icon: faUserCog },
-    ],
-  },
-];
 
 /**
  * MobileDrawer - Full-height sliding drawer for mobile navigation (<1024px)
@@ -99,6 +55,87 @@ const MobileDrawer = memo(function MobileDrawer() {
   const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
   const drawerRef = useRef(null);
   const touchStartX = useRef(0);
+
+  const { appointmentUnread, contactUnread } = useNotifications();
+
+  // Fetch counts for sidebar badges
+  const { data: appointmentsCount } = useQuery({
+    queryKey: ["appointments", "pending-count"],
+    queryFn: () => getAppointments({ status: "PENDING", limit: 1 }),
+    staleTime: 2 * 60 * 1000,
+    refetchInterval: 30 * 1000,
+  });
+
+  const pendingCount = appointmentsCount?.data?.totalDocs || 0;
+
+  const { data: contactsCount } = useQuery({
+    queryKey: ["contact", "unread-count"],
+    queryFn: () => getContactMessages({ isRead: false, limit: 1 }),
+    staleTime: 2 * 60 * 1000,
+    refetchInterval: 30 * 1000,
+  });
+
+  const unreadContactCount = contactsCount?.data?.totalDocs || 0;
+
+  const MOBILE_NAV_GROUPS = [
+    {
+      label: "OVERVIEW",
+      items: [{ label: "Dashboard", path: "/dashboard", icon: faTableColumns }],
+    },
+    {
+      label: "CONTENT",
+      items: [
+        {
+          label: "All Articles",
+          path: "/articles",
+          icon: faFileText,
+          indent: true,
+        },
+        {
+          label: "Categories",
+          path: "/articles/categories",
+          icon: faFileText,
+          indent: true,
+        },
+        {
+          label: "Create Article",
+          path: "/articles/create",
+          icon: faFileText,
+          indent: true,
+        },
+        { label: "Research", path: "/research", icon: faBookOpen },
+        { label: "Testimonials", path: "/testimonials", icon: faStar },
+      ],
+    },
+    {
+      label: "MANAGEMENT",
+      items: [
+        {
+          label: `Appointments${pendingCount > 0 ? ` (${pendingCount})` : ""}`,
+          path: "/appointments",
+          icon: faCalendar,
+          badge: pendingCount > 0,
+          badgeColor: "bg-yellow-500",
+        },
+        {
+          label: `Contact Messages${unreadContactCount > 0 ? ` (${unreadContactCount})` : ""}`,
+          path: "/contact",
+          icon: faMessage,
+          badge: unreadContactCount > 0,
+          badgeColor: "bg-blue-500",
+        },
+        { label: "Users", path: "/users", icon: faUsers, adminOnly: true },
+      ],
+    },
+    {
+      label: "SYSTEM",
+      items: [
+        { label: "Activity Logs", path: "/activity-logs", icon: faHeartbeat },
+        { label: "App Info", path: "/app-info", icon: faCog, adminOnly: true },
+        { label: "Settings", path: "/settings", icon: faUserCog },
+      ],
+    },
+  ];
 
   // Close drawer on route change
   useEffect(() => {

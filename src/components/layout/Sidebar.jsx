@@ -26,6 +26,10 @@ import Tooltip from "@components/ui/Tooltip";
 import ConfirmDialog from "@components/ui/ConfirmDialog";
 import { useState } from "react";
 
+import { useNotifications } from "@context/NotificationContext";
+import { useQuery } from "@tanstack/react-query";
+import { getAppointments } from "@api/appointment.api";
+import { getContactMessages } from "@api/contact.api";
 /**
  * Navigation item configuration
  * @typedef {Object} NavItem
@@ -60,6 +64,26 @@ const Sidebar = memo(function Sidebar() {
   // Check if any articles sub-nav should be open
   const isArticlesActive = location.pathname.startsWith("/articles");
 
+  const { appointmentUnread, contactUnread } = useNotifications();
+
+  // Fetch counts for sidebar badges
+  const { data: appointmentsCount } = useQuery({
+    queryKey: ["appointments", "pending-count"],
+    queryFn: () => getAppointments({ status: "PENDING", limit: 1 }),
+    staleTime: 2 * 60 * 1000,
+    refetchInterval: 30 * 1000,
+  });
+
+  const pendingCount = appointmentsCount?.data?.totalDocs || 0;
+
+  const { data: contactsCount } = useQuery({
+    queryKey: ["contact", "unread-count"],
+    queryFn: () => getContactMessages({ isRead: false, limit: 1 }),
+    staleTime: 2 * 60 * 1000,
+    refetchInterval: 30 * 1000,
+  });
+
+  const unreadContactCount = contactsCount?.data?.totalDocs || 0;
   /**
    * Main navigation items configuration
    * Articles has sub-navigation with collapsible children
@@ -109,11 +133,15 @@ const Sidebar = memo(function Sidebar() {
             label: "Appointments",
             path: "/appointments",
             icon: faCalendar,
+            badge: pendingCount > 0 ? pendingCount : null,
+            badgeColor: "bg-yellow-500",
           },
           {
             label: "Contact Messages",
             path: "/contact",
             icon: faMessage,
+            badge: unreadContactCount > 0 ? unreadContactCount : null,
+            badgeColor: "bg-blue-500",
           },
           {
             label: "Users",
@@ -145,7 +173,7 @@ const Sidebar = memo(function Sidebar() {
         ],
       },
     ],
-    [],
+    [pendingCount, unreadContactCount],
   );
 
   /**
@@ -436,7 +464,20 @@ const NavItemComponent = memo(function NavItemComponent({
               </motion.span>
             )}
           </AnimatePresence>
-
+          {/* Badge - shown when collapsed or expanded */}
+          {item.badge && (
+            <span
+              className={`
+              ${item.badgeColor || "bg-red-500"} 
+              text-white text-[10px] font-bold 
+              min-w-[18px] h-[18px] flex items-center justify-center 
+              rounded-full px-1
+              ${collapsed ? "absolute -top-0.5 -right-0.5" : "ml-auto"}
+            `}
+            >
+              {item.badge > 99 ? "99+" : item.badge}
+            </span>
+          )}
           {/* Sub-nav Chevron */}
           {hasChildren && !collapsed && (
             <motion.button

@@ -21,7 +21,7 @@ import { useTheme } from "@hooks/useTheme";
 import Avatar from "@components/ui/Avatar";
 import Dropdown from "@components/ui/Dropdown";
 import ConfirmDialog from "@components/ui/ConfirmDialog";
-
+import NotificationBell from "@components/shared/NotificationBell";
 /**
  * Navbar - Top navigation bar
  *
@@ -194,17 +194,7 @@ const Navbar = memo(function Navbar() {
             </motion.button>
 
             {/* Notification Bell */}
-            <button
-              className="relative p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
-              aria-label="Notifications (coming soon)"
-            >
-              <FontAwesomeIcon
-                icon={faBell}
-                className="w-5 h-5 text-text-para-light dark:text-text-para-dark"
-              />
-              {/* Notification badge - hidden for now */}
-              <span className="absolute top-0.5 right-0.5 w-2 h-2 bg-red-500 rounded-full hidden" />
-            </button>
+            <NotificationBell />
 
             {/* User Dropdown */}
             <Dropdown

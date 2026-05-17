@@ -3,6 +3,7 @@ import { useTheme } from "@hooks/useTheme";
 import AppRouter from "@router/AppRouter";
 import { useAuthStore } from "@store/auth.store";
 import Spinner from "@components/ui/Spinner";
+import { NotificationProvider } from "@context/NotificationContext";
 
 /**
  * Root application component
@@ -111,7 +112,11 @@ function App() {
     );
   }
 
-  return <AppRouter />;
+  return (
+    <NotificationProvider>
+      <AppRouter />
+    </NotificationProvider>
+  );
 }
 
 // Need to import api for the interval refresh
