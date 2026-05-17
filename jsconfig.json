@@ -13,7 +13,8 @@
       "@constants/*": ["./src/constants/*"],
       "@context/*": ["./src/context/*"],
       "@router/*": ["./src/router/*"],
-      "@assets/*": ["./src/assets/*"]
+      "@assets/*": ["./src/assets/*"],
+      "@lib/*": ["./src/lib/*"]
     },
     "jsx": "react-jsx",
     "moduleResolution": "bundler",

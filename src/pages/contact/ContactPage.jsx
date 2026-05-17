@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { useState, useMemo, useCallback } from "react";
+import { useState, useMemo, useCallback, useEffect } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -27,6 +27,8 @@ import ContactDetailModal from "@components/contact/ContactDetailModal";
 import EmptyState from "@components/ui/EmptyState";
 import Tooltip from "@components/ui/Tooltip";
 import { toast } from "sonner";
+import { useNotifications } from "@context/NotificationContext";
+import { joinRoom, leaveRoom } from "@lib/socket";
 
 /**
  * Status tab configuration - simplified for isRead boolean backend
@@ -149,6 +151,14 @@ function ContactPage() {
   );
 
   const hasActiveFilters = activeTab || search;
+
+  const { resetContactUnread } = useNotifications();
+
+  useEffect(() => {
+    joinRoom("contacts");
+    resetContactUnread();
+    return () => leaveRoom("contacts");
+  }, [resetContactUnread]);
 
   return (
     <motion.div

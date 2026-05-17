@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { useState, useMemo, useCallback } from "react";
+import { useState, useMemo, useCallback, useEffect } from "react";
 import { useNavigate } from "react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { motion, AnimatePresence } from "framer-motion";
@@ -27,6 +27,8 @@ import DataTable from "@components/shared/DataTable";
 import Pagination from "@components/ui/Pagination";
 import AppointmentDetailModal from "@components/appointments/AppointmentDetailModal";
 import { toast } from "sonner";
+import { useNotifications } from "@context/NotificationContext";
+import { joinRoom, leaveRoom } from "@lib/socket";
 
 /**
  * Status tab configuration
@@ -184,6 +186,13 @@ function AppointmentsPage() {
     return counts;
   }, [appointments, appointmentsData]);
 
+  const { resetAppointmentUnread } = useNotifications();
+
+  useEffect(() => {
+    joinRoom("appointments");
+    resetAppointmentUnread();
+    return () => leaveRoom("appointments");
+  }, [resetAppointmentUnread]);
   /**
    * Table columns configuration
    */
