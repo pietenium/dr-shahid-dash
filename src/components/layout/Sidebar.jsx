@@ -446,8 +446,8 @@ const NavItemComponent = memo(function NavItemComponent({
           aria-label={item.label}
         >
           <FontAwesomeIcon
-            icon={item.icon}
-            className={`w-4.5 h-4.5  shrink-0 ${collapsed ? "w-5 h-5" : ""}`}
+            icon={item.icon}            
+            className={`w-4 h-4 shrink-0 ${collapsed ? "w-5 h-5" : ""}`}
             fixedWidth
           />
 

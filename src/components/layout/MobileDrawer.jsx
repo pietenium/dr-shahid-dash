@@ -197,24 +197,10 @@ const MobileDrawer = memo(function MobileDrawer() {
    * Handle logout confirmation
    */
   const handleLogout = useCallback(() => {
-    logout();
     setShowLogoutConfirm(false);
-    navigate("/login");
-  }, [logout, navigate]);
-
-  useEffect(() => {
-    if (showLogoutConfirm) {
-      // Prevent background scrolling when confirm dialog is open
-      document.body.style.overflow = "hidden";
-      handleLogout();
-    } else {
-      document.body.style.overflow = "";
-    }
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [showLogoutConfirm, handleLogout]);
-
+    setSidebar(false);
+    logout();
+  }, [logout, setSidebar]);
   /**
    * Handle nav item click - close drawer on mobile
    */
@@ -347,6 +333,16 @@ const MobileDrawer = memo(function MobileDrawer() {
           </motion.aside>
         </div>
       )}
+      {/* Logout Confirmation Dialog */}
+      <ConfirmDialog
+        isOpen={showLogoutConfirm}
+        onClose={() => setShowLogoutConfirm(false)}
+        onConfirm={handleLogout}
+        title="Confirm Logout"
+        message="Are you sure you want to log out? You will be redirected to the login page."
+        confirmText="Logout"
+        variant="warning"
+      />
     </AnimatePresence>
   );
 });
