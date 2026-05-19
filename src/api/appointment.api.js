@@ -2,22 +2,20 @@ import api from "./axios";
 
 /**
  * Appointment API service
- * Provides complete CRUD operations and chart data for appointments
- * All endpoints require authentication (handled by axios interceptor)
+ * Provides complete CRUD operations, bulk delete, and chart data for appointments
  */
 
 /**
  * Fetch paginated appointments with optional filters
  * @param {Object} [params] - Query parameters
  * @param {'PENDING'|'CONFIRMED'|'CANCELLED'} [params.status] - Filter by status
+ * @param {string} [params.chemberId] - Filter by chamber ID
  * @param {string} [params.startDate] - Filter by start date (ISO string)
  * @param {string} [params.endDate] - Filter by end date (ISO string)
  * @param {string} [params.search] - Search by name or phone
  * @param {number} [params.page=1] - Page number
  * @param {number} [params.limit=10] - Items per page
  * @returns {Promise<Object>} Paginated appointments response
- * @returns {Array} returns.data.results - Array of appointment objects
- * @returns {Object} returns.data.pagination - Pagination metadata
  */
 export async function getAppointments(params = {}) {
   const response = await api.get("/appointments", { params });
@@ -46,12 +44,28 @@ export async function updateAppointmentStatus(id, status) {
 }
 
 /**
+ * Delete a single appointment
+ * @param {string} id - Appointment ID
+ * @returns {Promise<Object>} Deletion response
+ */
+export async function deleteAppointment(id) {
+  const response = await api.delete(`/appointments/${id}`);
+  return response.data;
+}
+
+/**
+ * Bulk delete appointments by IDs or by status
+ * @param {Object} payload - { ids?: string[], status?: string }
+ * @returns {Promise<Object>} Bulk deletion response with deletedCount
+ */
+export async function bulkDeleteAppointments(payload) {
+  const response = await api.delete("/appointments/bulk", { data: payload });
+  return response.data;
+}
+
+/**
  * Fetch appointment chart data for analytics
  * @returns {Promise<Object>} Chart data response
- * @returns {Array} returns.data.dailyCounts - Daily counts (last 30 days)
- * @returns {Array} returns.data.monthlyCounts - Monthly counts (last 12 months)
- * @returns {number} returns.data.totalCount - Total appointment count
- * @returns {Array} returns.data.statusDistribution - Counts by status
  */
 export async function getAppointmentCharts() {
   const response = await api.get("/appointments/charts");
