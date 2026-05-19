@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { useState, useMemo, useCallback } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faHospital } from "@fortawesome/free-solid-svg-icons";
 import {
@@ -31,7 +31,11 @@ function ChambersPage() {
   const [modalOpen, setModalOpen] = useState(false);
   const [editingChamber, setEditingChamber] = useState(null);
   const [deleteTarget, setDeleteTarget] = useState(null);
+  const [expandedMap, setExpandedMap] = useState(null);
 
+  const handleExpandMap = useCallback((chamber) => {
+    setExpandedMap(chamber);
+  }, []);
   /**
    * Fetch chambers
    */
@@ -192,6 +196,7 @@ function ChambersPage() {
               index={index}
               onEdit={handleEdit}
               onDelete={setDeleteTarget}
+              onExpandMap={handleExpandMap}
             />
           ))}
         </div>
@@ -218,6 +223,64 @@ function ChambersPage() {
         variant="danger"
         loading={deleteMutation.isPending}
       />
+      {/* ========== FULLSCREEN MAP OVERLAY ========== */}
+      <AnimatePresence>
+        {expandedMap && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] bg-black/80 flex items-center justify-center p-4"
+            onClick={() => setExpandedMap(null)}
+          >
+            <motion.div
+              initial={{ scale: 0.9 }}
+              animate={{ scale: 1 }}
+              exit={{ scale: 0.9 }}
+              transition={{ duration: 0.2 }}
+              className="relative w-full max-w-5xl h-[85vh] rounded-2xl overflow-hidden shadow-2xl bg-white dark:bg-gray-900"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Header Bar */}
+              <div className="absolute top-0 left-0 right-0 z-10 flex items-center justify-between px-5 py-3 bg-gradient-to-b from-black/60 to-transparent">
+                <h3 className="text-white font-semibold text-sm">
+                  📍 {expandedMap.chemberName}
+                </h3>
+                <button
+                  onClick={() => setExpandedMap(null)}
+                  className="p-2 bg-white/20 hover:bg-white/30 text-white rounded-full transition-colors backdrop-blur-sm"
+                  aria-label="Close map"
+                >
+                  <svg
+                    className="w-4 h-4"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth={2}
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M6 18L18 6M6 6l12 12"
+                    />
+                  </svg>
+                </button>
+              </div>
+              <iframe
+                src={expandedMap.map}
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen=""
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title={`Map of ${expandedMap.chemberName}`}
+                sandbox="allow-scripts allow-same-origin allow-popups"
+              />
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.div>
   );
 }
