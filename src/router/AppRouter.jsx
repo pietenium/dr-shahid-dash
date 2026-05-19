@@ -27,6 +27,7 @@ import TestimonialsPage from "@pages/testimonials/TestimonialsPage";
 import TestimonialCreatePage from "@pages/testimonials/TestimonialCreatePage";
 import TestimonialUpdatePage from "@pages/testimonials/TestimonialUpdatePage";
 import UsersPage from "@pages/users/UsersPage";
+import ChambersPage from "@pages/chambers/ChambersPage";
 import ActivityLogsPage from "@pages/activity-logs/ActivityLogsPage";
 import AppInfoPage from "@pages/app-info/AppInfoPage";
 import ContactPage from "@pages/contact/ContactPage";
@@ -83,6 +84,7 @@ function AppRouter() {
             element={<TestimonialUpdatePage />}
           />
           <Route path="/app-info" element={<AppInfoPage />} />
+          <Route path="/chambers" element={<ChambersPage />} />
           <Route path="/users" element={<UsersPage />} />
           <Route path="/activity-logs" element={<ActivityLogsPage />} />
           <Route path="/settings" element={<SettingsPage />} />

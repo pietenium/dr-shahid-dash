@@ -16,6 +16,7 @@ import {
   faUserCog,
   faXmark,
   faSignOutAlt,
+  faHospital,
 } from "@fortawesome/free-solid-svg-icons";
 import { useUIStore } from "@store/ui.store";
 import { useAuth } from "@hooks/useAuth";
@@ -125,6 +126,12 @@ const MobileDrawer = memo(function MobileDrawer() {
           badgeColor: "bg-blue-500",
         },
         { label: "Users", path: "/users", icon: faUsers, adminOnly: true },
+        {
+          label: "Chambers",
+          path: "/chambers",
+          icon: faHospital,
+          adminOnly: true,
+        },
       ],
     },
     {

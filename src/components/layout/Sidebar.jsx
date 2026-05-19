@@ -18,6 +18,7 @@ import {
   faChevronRight,
   faChevronDown,
   faSignOutAlt,
+  faHospital,
 } from "@fortawesome/free-solid-svg-icons";
 import { useUIStore } from "@store/ui.store";
 import { useAuth } from "@hooks/useAuth";
@@ -147,6 +148,12 @@ const Sidebar = memo(function Sidebar() {
             label: "Users",
             path: "/users",
             icon: faUsers,
+            adminOnly: true,
+          },
+          {
+            label: "Chambers",
+            path: "/chambers",
+            icon: faHospital,
             adminOnly: true,
           },
         ],
@@ -446,7 +453,7 @@ const NavItemComponent = memo(function NavItemComponent({
           aria-label={item.label}
         >
           <FontAwesomeIcon
-            icon={item.icon}            
+            icon={item.icon}
             className={`w-4 h-4 shrink-0 ${collapsed ? "w-5 h-5" : ""}`}
             fixedWidth
           />
